@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>環保藝術嘉年華</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to bottom right, #add8e6, #b2ebf2);
+            background-image: url('path/to/your/vibrant-nature-background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #004d40;
+            position: relative;
+            overflow: auto;
+            min-height: 100vh;
+        }
+        .header {
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 1.5em; /* 縮小標題字體 */
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+            margin: 0; /* 去除默認邊距 */
+        }
+        h2 {
+            font-size: 1.5em; /* 縮小副標題字體 */
+            margin: 0; /* 去除默認邊距 */
+        }
+        .booth {
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #004d40;
+            border-radius: 10px;
+            background-color: rgba(178, 235, 242, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .booth label {
+            font-size: 0.9em; /* 調整攤位欄字體大小 */
+        }
+        input[type="password"], input[type="text"] {
+            padding: 8px;
+            border: 1px solid #004d40;
+            border-radius: 5px;
+            margin-right: 5px;
+            width: 80px;
+            font-size: 14px;
+        }
+        button {
+            padding: 8px 12px;
+            background-color: #004d40;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00796b;
+        }
+        .gift {
+            display: none;
+            margin-top: 20px;
+            font-size: 80px;
+            color: #00796b;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.2);
+            z-index: 10;
+            animation: bounce 1s infinite;
+        }
+        .gift-message {
+            display: none;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #00796b;
+        }
+        .hidden {
+            display: none;
+        }
+        .background-shape {
+            position: absolute;
+            top: 10%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            clip-path: polygon(0 20%, 50% 0, 100% 20%, 100% 100%, 50% 80%, 0 100%);
+            z-index: -1;
+        }
+        .firework {
+            position: absolute;
+            background: rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: explode 1s forwards;
+        }
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(10);
+                opacity: 0;
+            }
+        }
+        .info-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-shape"></div>
+    
+    <div class="header">
+        <h1>東華三院譚錦球伉儷幼稚園</h1>
+        <h2>環保藝術嘉年華</h2>
+    </div>
+
+    <div class="info-box">
+        <h3>環保小知識</h3>
+        <p id="ecoTip">為了保護環境，我們可以選擇步行或騎自行車出行，減少碳排放。</p>
+    </div>
+
+    <div id="booths">
+        <div class="booth">
+            <label>課室一：風力船大比拼</label>
+            <input type="text" id="input2" maxlength="2" placeholder="密碼">
+            <button onclick="checkPassword('booth2', 'input2', '01', '風力船大比拼')">確定</button>
+            <span id="booth2" class="status"></span>
+        </div>
+        <div class="booth">
+            <label>課室三：太陽能GoGo車</label>
+            <input type="text" id="input3" maxlength="2" placeholder="密碼">
+            <button onclick="checkPassword('booth3', 'input3', '03', '太陽能GoGo車')">確定</button>
+            <span id="booth3" class="status"></span>
+        </div>
+        <div class="booth">
+            <label>課室四：通粉大變身</label>
+            <input type="text" id="input4" maxlength="2" placeholder="密碼">
+            <button onclick="checkPassword('booth4', 'input4', '04', '通粉大變身')">確定</button>
+            <span id="booth4" class="status"></span>
+        </div>
+        <div class="booth">
+            <label>課室五：植物拓印帆布袋</label>
+            <input type="text" id="input5" maxlength="2" placeholder="密碼">
+            <button onclick="checkPassword('booth5', 'input5', '05', '植物拓印帆布袋')">確定</button>
+            <span id="booth5" class="status"></span>
+        </div>
+        <div class="booth">
+            <label>課室六：尋幽探秘之旅</label>
+            <input type="text" id="input6" maxlength="2" placeholder="密碼">
+            <button onclick="checkPassword('booth6', 'input6', '06', '尋幽探秘之旅')">確定</button>
+            <span id="booth6" class="status"></span>
+        </div>
+    </div>
+
+    <div id="gift" class="gift">🎁</div>
+    <div id="giftMessage" class="gift-message">
+        <span class="gift-symbol">🎁</span>恭喜！您已完成所有攤位，請到大堂換領一份禮物！
+    </div>
+
+    <div id="rewardSection" class="hidden" style="margin-top: 20px;">
+        <input type="password" id="rewardInput" placeholder="完成活動後輸入密碼" style="width: 80px;">
+        <button onclick="checkRewardPassword()">確認換領</button>
+    </div>
+
+    <audio id="celebrationSound" src="https://example.com/celebration.mp3" preload="auto"></audio>
+
+    <script>
+        let boothStatus = { 
+            booth2: false, 
+            booth3: false, 
+            booth4: false, 
+            booth5: false, 
+            booth6: false 
+        };
+
+        const ecoTips = [
+            "選擇步行或騎自行車出行，減少碳排放。",
+            "回收舊衣物可以幫助減少垃圾填埋場的負擔。",
+            "種植本地植物不僅美化環境，還能吸引當地野生動物。",
+            "使用可重複使用的水瓶可以減少一次性塑料的使用。",
+            "學習如何堆肥可以將廚餘轉化為肥料，減少垃圾。",
+            "為家中安裝太陽能板可以節省能源開支並減少碳足跡。",
+            "選擇購買有機產品有助於支持可持續農業。",
+            "參加清理活動，幫助清理附近的公園或海灘。",
+            "在家中使用LED燈泡可以節省大量電力。",
+            "了解和支持本地環保組織，參與他們的活動。"
+        ];
+
+        let currentTipIndex = 0;
+
+        function nextEcoTip() {
+            currentTipIndex = (currentTipIndex + 1) % ecoTips.length;
+            document.getElementById("ecoTip").innerText = ecoTips[currentTipIndex];
+        }
+
+        window.onload = function() {
+            nextEcoTip();
+            setInterval(nextEcoTip, 10000);
+        };
+
+        function checkPassword(booth, inputId, correctPassword, boothName) {
+            const password = document.getElementById(inputId).value;
+            if (password === correctPassword) {
+                document.getElementById(booth).innerHTML = `✅`;
+                boothStatus[booth] = true;
+                hideInputAndButton(inputId);
+                checkAllBooths();
+            } else {
+                alert("密碼錯誤，請再試一次！");
+            }
+            document.getElementById(inputId).value = "";
+        }
+
+        function hideInputAndButton(inputId) {
+            const boothDiv = document.getElementById(inputId).parentNode;
+            boothDiv.querySelector('input').classList.add('hidden');
+            boothDiv.querySelector('button').classList.add('hidden');
+        }
+
+        function checkAllBooths() {
+            if (boothStatus.booth2 && boothStatus.booth3 && 
+                boothStatus.booth4 && boothStatus.booth5 && boothStatus.booth6) {
+                displayGift();
+            }
+        }
+
+        function displayGift() {
+            document.getElementById("gift").style.display = "block";
+            createFireworks();
+            playCelebrationSound();
+
+            setTimeout(() => {
+                document.getElementById("gift").style.display = "none";
+                document.getElementById("giftMessage").style.display = "block";
+                document.getElementById("rewardSection").classList.remove("hidden");
+            }, 2000);
+        }
+
+        function playCelebrationSound() {
+            const sound = document.getElementById("celebrationSound");
+            sound.currentTime = 0;
+            sound.play();
+        }
+
+        function checkRewardPassword() {
+            const rewardPassword = document.getElementById("rewardInput").value;
+            if (rewardPassword === "123") {
+                window.location.href = "https://www.tkk-kindergarten.edu.hk/";
+            } else {
+                alert("密碼錯誤，請再試一次！");
+            }
+        }
+
+        function createFireworks() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.width = Math.random() * 20 + 20 + 'px';
+                    firework.style.height = firework.style.width;
+                    firework.style.left = Math.random() * window.innerWidth + 'px';
+                    firework.style.top = Math.random() * window.innerHeight + 'px';
+                    document.body.appendChild(firework);
+                    
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 1000);
+                }, i * 100);
+            }
+        }
+    </script>
+
+
+</body></html>
